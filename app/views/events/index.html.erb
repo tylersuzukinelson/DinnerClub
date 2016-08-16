@@ -1,3 +1,7 @@
+Welcome back <%= current_user.username %>! You are currently sitting at <%= current_user.total_penalties %> penalty points!<br /><br />
+
+<hr>
+
 <% @events.each do |event| %>
   <strong><%= event.location %></strong><br />
   <em><%= event.start %></em><br />

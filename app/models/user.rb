@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def total_penalties
+    penalties.count
+  end
+
 
   private
 
