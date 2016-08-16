@@ -1,1 +1,5 @@
-<em>This will be the welcome page...</em>
+<% @events.each do |event| %>
+  <strong><%= event.location %></strong><br />
+  <em><%= event.start %></em><br />
+  <hr>
+<% end %>
