@@ -3,5 +3,6 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks',
     sessions: 'users/sessions'
   }
+  resources :events, only: [:index, :show]
   root 'events#index'
 end

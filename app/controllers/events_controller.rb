@@ -4,4 +4,8 @@ class EventsController < ApplicationController
   def index
     @events = Event.order("start asc")
   end
+
+  def show
+    @event = Event.find(params[:id])
+  end
 end
