@@ -34,6 +34,10 @@ class User < ActiveRecord::Base
     penalties.count
   end
 
+  def rsvp_for(event)
+    rsvps.find_by_event_id(event.id).try(:rsvp)
+  end
+
 
   private
 
