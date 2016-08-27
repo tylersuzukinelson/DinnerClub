@@ -38,6 +38,10 @@ class User < ActiveRecord::Base
     rsvps.find_by_event_id(event.id).try(:rsvp)
   end
 
+  def admin?
+    id == 1
+  end
+
 
   private
 
