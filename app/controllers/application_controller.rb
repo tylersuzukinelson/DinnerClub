@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def authenticate_admin!
-    redirect_to root_path unless current_user.try(:admin?)
+    sign_out_and_redirect(current_user) unless current_user.try(:admin?)
+  end
+
+  def authorize_user!
+    sign_out_and_redirect(current_user) unless current_user.try(:enabled?)
   end
 end

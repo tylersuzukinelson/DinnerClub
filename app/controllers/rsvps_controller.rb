@@ -1,5 +1,6 @@
 class RsvpsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :authorize_user!
 
   def update
     event = Event.find(params[:id])
