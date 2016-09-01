@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   end
   resources :users, only: [:edit, :update]
   resources :events
+  resources :penalties
   patch '/events/:id/rsvp/:rsvp', to: 'rsvps#update', as: :rsvp
   root 'events#index'
 end

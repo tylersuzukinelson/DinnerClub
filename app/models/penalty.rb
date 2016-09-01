@@ -1,6 +1,10 @@
 class Penalty < ActiveRecord::Base
-  has_many :rsvps
-  has_many :users, through: :rsvps
+  belongs_to :rsvp
+  has_one :user, through: :rsvp
+  has_one :event, through: :rsvp
+
+  validates :rsvp_id, numericality: {greater_than: 0}
+  validates :kind, presence: true
 
   # DO NOT CHANGE THE ORDER OF THIS LIST. ONLY APPEND TO THE END.
   enum kind: [

@@ -1,0 +1,36 @@
+<table border="2" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>User</th>
+      <th>Penalty</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <%= form_for @penalty do |f| %>
+        <td>
+          <%= f.select :event, Event.where("events.end >= ?", Time.now).pluck(:location, :id) %>
+        </td>
+        <td>
+          <%= f.select :user, User.where(enabled: true).pluck(:username, :id) %>
+        </td>
+        <td>
+          <%= f.select :kind, Penalty.kinds.to_a.tap {|kinds| kinds.shift }.collect {|k,v| [k.humanize,k]} %>
+        </td>
+        <td>
+          <%= f.submit %>
+        </td>
+      <% end %>
+    </tr>
+    <% @penalties.each do |penalty| %>
+      <tr>
+        <td><%= link_to penalty.event.location, event_path(penalty.event) %></td>
+        <td><%= link_to penalty.user.username, "mailto:#{penalty.user.email}" %></td>
+        <td><%= penalty.kind.humanize %></td>
+        <td><%= link_to "Delete", penalty_path(penalty), method: :delete %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
