@@ -1,7 +1,7 @@
 <%= form_for @event do |f| %>
   <p>
-    <%= f.label :location %>
-    <%= f.text_field :location %>
+    <%= f.label :restaurant %>
+    <%= f.select :restaurant, Restaurant.pluck(:title, :id) %>
   </p>
   <p>
     <%= f.label :start %>
