@@ -14,8 +14,7 @@ class PenaltiesController < ApplicationController
       redirect_to penalties_path, alert: "That user did not RSVP for that event!"
       return
     end
-    @penalty = Penalty.new rsvp: rsvp, kind: penalty_params[:kind]
-    @penalty.save!
+    @penalty = Penalty.find_or_create_by rsvp: rsvp, kind: Penalty.kinds[penalty_params[:kind]]
     redirect_to penalties_path
   end
 
