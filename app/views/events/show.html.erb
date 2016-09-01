@@ -9,7 +9,13 @@
   <br /><br />
 <% end %>
 <%= "<em>You are currently RSVP'd as #{current_user.rsvp_for(@event)} for this event!</em><br /><br />".html_safe if current_user.rsvp_for(@event) %>
-Update your RSVP: <%= link_to("Yes", rsvp_path(@event, "yes"), method: :patch) %>, <%= link_to("No", rsvp_path(@event, "no"), method: :patch) %>, <%= link_to("Maybe", rsvp_path(@event, "maybe"), method: :patch) %>
+<% warning = {} %>
+<% if Event.last.start - Time.now < 24.hours %>
+  <% warning[:data] = {confirm: "This event starts in less than 24 hours. Changing your RSVP now will result in a penalty. Are you sure you wish to continue?"} %>
+<% elsif Event.last.start - Time.now < 5.days %>
+  <% warning[:data] = {confirm: "This event starts in less than 5 days. Changing your RSVP now will result in a penalty. Are you sure you wish to continue?"} %>
+<% end %>
+Update your RSVP: <%= link_to("Yes", rsvp_path(@event, "yes"), {method: :patch}.merge(warning)) %>, <%= link_to("No", rsvp_path(@event, "no"), {method: :patch}.merge(warning)) %>, <%= link_to("Maybe", rsvp_path(@event, "maybe"), {method: :patch}.merge(warning)) %>
 <br /><br />
 The following users have currently RSVP'd to this event:
 <ul>
