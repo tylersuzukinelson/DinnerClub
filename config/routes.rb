@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end
   end
   resources :users, only: [:edit, :update]
-  resources :events, only: [:index, :show]
+  resources :events
   patch '/events/:id/rsvp/:rsvp', to: 'rsvps#update', as: :rsvp
   root 'events#index'
 end

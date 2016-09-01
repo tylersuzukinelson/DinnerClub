@@ -1,0 +1,17 @@
+<%= form_for @event do |f| %>
+  <p>
+    <%= f.label :location %>
+    <%= f.text_field :location %>
+  </p>
+  <p>
+    <%= f.label :start %>
+    <%= f.text_field :start %>
+  </p>
+  <p>
+    <%= f.label :end %>
+    <%= f.text_field :end %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

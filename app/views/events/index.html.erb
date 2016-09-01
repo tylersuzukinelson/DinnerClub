@@ -3,7 +3,15 @@ Welcome back <%= current_user.username %>! You are currently sitting at <%= curr
 <hr>
 
 <% @events.each do |event| %>
-  <strong><%= link_to(event.location, event) %></strong><br />
+  <strong><%= link_to(event.location, event) %></strong>
+  <% if current_user.admin? %>
+    (
+      <%= link_to "Edit", edit_event_path(event) %>
+      |
+      <%= link_to "Delete", event_path(event), method: :delete %>
+    )
+  <% end %>
+  <br />
   <em><%= event.start %></em><br />
   <hr>
 <% end %>

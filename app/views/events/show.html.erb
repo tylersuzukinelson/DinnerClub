@@ -1,4 +1,12 @@
 <h2><%= @event.location %></h2>
 <h3><%= @event.start %></h3>
+<% if current_user.admin? %>
+  (
+    <%= link_to "Edit", edit_event_path(@event) %>
+    |
+    <%= link_to "Delete", event_path(@event), method: :delete %>
+  )
+  <br /><br />
+<% end %>
 <%= "<em>You are currently RSVP'd as #{current_user.rsvp_for(@event)} for this event!</em><br /><br />".html_safe if current_user.rsvp_for(@event) %>
 Update your RSVP: <%= link_to("Yes", rsvp_path(@event, "yes"), method: :patch) %>, <%= link_to("No", rsvp_path(@event, "no"), method: :patch) %>, <%= link_to("Maybe", rsvp_path(@event, "maybe"), method: :patch) %>
