@@ -1,0 +1,16 @@
+<table border="2" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Restaurant</th>
+      <th>Address</th>
+      <th>Website</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render partial: "form", locals: {restaurant: Restaurant.new} %>
+    <% @restaurants.each do |restaurant| %>
+      <%= render partial: "form", locals: {restaurant: restaurant} %>
+    <% end %>
+  </tbody>
+</table>
