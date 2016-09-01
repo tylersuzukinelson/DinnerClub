@@ -17,7 +17,7 @@
           <%= f.select :user, User.where(enabled: true).pluck(:username, :id) %>
         </td>
         <td>
-          <%= f.select :kind, Penalty.kinds.to_a.tap {|kinds| kinds.shift }.collect {|k,v| [k.humanize,k]} %>
+          <%= f.select :kind, Penalty.kinds.collect {|k,v| [k.humanize,k]} %>
         </td>
         <td>
           <%= f.submit %>

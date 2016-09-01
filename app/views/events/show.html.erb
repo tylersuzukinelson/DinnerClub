@@ -10,3 +10,67 @@
 <% end %>
 <%= "<em>You are currently RSVP'd as #{current_user.rsvp_for(@event)} for this event!</em><br /><br />".html_safe if current_user.rsvp_for(@event) %>
 Update your RSVP: <%= link_to("Yes", rsvp_path(@event, "yes"), method: :patch) %>, <%= link_to("No", rsvp_path(@event, "no"), method: :patch) %>, <%= link_to("Maybe", rsvp_path(@event, "maybe"), method: :patch) %>
+<br /><br />
+The following users have currently RSVP'd to this event:
+<ul>
+  <li>
+    Yes:
+    <ul>
+      <% @event.rsvps.where(rsvp: Rsvp.rsvps[:yes]).each do |rsvp| %>
+        <li>
+          <%= rsvp.user.username %>
+          <% if current_user.admin? %>
+            <br />
+            Current penalties: <%= rsvp.penalties.map {|penalty| penalty.kind.humanize}.to_sentence %>
+            <%= form_for Penalty.new do |f| %>
+              <%= f.hidden_field :event, value: rsvp.event_id %>
+              <%= f.hidden_field :user, value: rsvp.user_id %>
+              <%= f.select :kind, Penalty.kinds.collect {|k,v| [k.humanize,k]} %>
+              <%= f.submit "Apply penalty" %>
+            <% end %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+  <li>
+    Maybe:
+    <ul>
+      <% @event.rsvps.where(rsvp: Rsvp.rsvps[:maybe]).each do |rsvp| %>
+        <li>
+          <%= rsvp.user.username %>
+          <% if current_user.admin? %>
+            <br />
+            Current penalties: <%= rsvp.penalties.map {|penalty| penalty.kind.humanize}.to_sentence %>
+            <%= form_for Penalty.new do |f| %>
+              <%= f.hidden_field :event, value: rsvp.event_id %>
+              <%= f.hidden_field :user, value: rsvp.user_id %>
+              <%= f.select :kind, Penalty.kinds.collect {|k,v| [k.humanize,k]} %>
+              <%= f.submit "Apply penalty" %>
+            <% end %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+  <li>
+    No:
+    <ul>
+      <% @event.rsvps.where(rsvp: Rsvp.rsvps[:no]).each do |rsvp| %>
+        <li>
+          <%= rsvp.user.username %>
+          <% if current_user.admin? %>
+            <br />
+            Current penalties: <%= rsvp.penalties.map {|penalty| penalty.kind.humanize}.to_sentence %>
+            <%= form_for Penalty.new do |f| %>
+              <%= f.hidden_field :event, value: rsvp.event_id %>
+              <%= f.hidden_field :user, value: rsvp.user_id %>
+              <%= f.select :kind, Penalty.kinds.collect {|k,v| [k.humanize,k]} %>
+              <%= f.submit "Apply penalty" %>
+            <% end %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+</ul>
